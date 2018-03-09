@@ -2,8 +2,11 @@ package com.example.valery.javaforeveryone_begginer.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+<<<<<<< feature/creatingHome
 import android.arch.lifecycle.LiveData;
 import android.os.SystemClock;
+=======
+>>>>>>> local
 
 import com.example.valery.javaforeveryone_begginer.db.AppDatabase;
 import com.example.valery.javaforeveryone_begginer.model.User;

@@ -6,14 +6,15 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+<<<<<<< feature/creatingHome
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+=======
+>>>>>>> local
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -32,7 +33,11 @@ import java.util.List;
 
 @EActivity(R.layout.activity_home)
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+<<<<<<< feature/creatingHome
 
+=======
+    
+>>>>>>> local
     SharedPreferences prefs;
     @ViewById(resName = "nav_view")
     NavigationView navigationView;
@@ -53,11 +58,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     String username,password;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
     public void logout(){
         SharedPreferences.Editor ed = prefs.edit();
         ed.clear().apply();
@@ -74,18 +74,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         }
         return false;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         if (toggler.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+<<<<<<< feature/creatingHome
 
     @RequiresApi(api = Build.VERSION_CODES.N)
+=======
+>>>>>>> local
     @AfterViews
     void setUp(){
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -105,22 +107,36 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         navHeadUsername = navHeaderView.findViewById(R.id.nav_head_username);
+<<<<<<< feature/creatingHome
 
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         getUser();
 
         navHeadUsername.setText(username);
 
+=======
+        getUser();
+>>>>>>> local
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Background
     public void getUser(){
+<<<<<<< feature/creatingHome
         mUser = mUserViewModel.getmUser(username, password);
         mUserViewModel.getmAllUsers().observe(HomeActivity.this, users -> {
             for (User user : users){
                 Log.e("USERS" , user.toString() + "");
             }
         });
+=======
+        mUserViewModel.getUser(username, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(user -> {
+                    mUser = user;
+                    navHeadUsername.setText(mUser.getUsername());
+                });
+>>>>>>> local
     }
 }
