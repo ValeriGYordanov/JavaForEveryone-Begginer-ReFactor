@@ -33,8 +33,8 @@ public class UserViewModel extends AndroidViewModel{
         mAllUsers = appDatabase.userModelDAO().getAllUsers();
     }
 
-    public User getmUser(String username, String password){
-        return appDatabase.userModelDAO().getUserByUsername(username);
+    public User getmUser(){
+        return this.user;
     }
 
     public Observable<User> getUser (String username, String password){

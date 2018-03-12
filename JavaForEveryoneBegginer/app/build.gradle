@@ -52,5 +52,8 @@ dependencies {
     //Google's GSON
     compile 'com.google.code.gson:gson:2.8.2'
 
+    //HTML TextView
+    compile 'org.sufficientlysecure:html-textview:3.5'
+
 
 }
