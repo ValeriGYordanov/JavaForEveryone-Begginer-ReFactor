@@ -9,20 +9,77 @@
     android:id="@+id/home_layout"
     >
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_fragment_place">
+
     <ScrollView
         android:id="@+id/ScrollViewTEST"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textViewTEST"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/mid_margin"
+                android:background="@android:color/transparent"
+                android:src="@drawable/btn_intro_stage"
+                android:id="@+id/btn_intro" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btn_intro"
+                android:layout_below="@+id/btn_intro"
+                android:layout_marginTop="@dimen/big_margin"
+                android:background="@android:color/transparent"
+                android:src="@drawable/btn_loops_stage"
+                android:id="@+id/btn_loops" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btn_loops"
+                android:layout_below="@+id/btn_loops"
+                android:layout_marginTop="@dimen/big_margin"
+                android:background="@android:color/transparent"
+                android:src="@drawable/btn_arrays_stage"
+                android:id="@+id/btn_arrays" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/btn_arrays"
+                android:layout_below="@+id/btn_arrays"
+                android:layout_marginTop="@dimen/big_margin"
+                android:background="@android:color/transparent"
+                android:src="@drawable/btn_string_stage"
+                android:id="@+id/btn_strings" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignStart="@+id/btn_strings"
+                android:layout_below="@+id/btn_strings"
+                android:layout_marginTop="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/mid_margin"
+                android:background="@android:color/transparent"
+                android:src="@drawable/btn_algorithms_stage"
+                android:id="@+id/btn_algorithms"/>
+
+        </RelativeLayout>
 
     </ScrollView>
 
+    </RelativeLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -30,7 +87,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:theme="@style/AppTheme.NavigationView"
-        android:background="@android:color/transparent"
+        android:background="@color/colorTransparentPrimaryDark"
         app:headerLayout="@layout/nav_header"
         app:itemTextColor="@android:color/white"
         app:menu="@menu/drawer_menu">

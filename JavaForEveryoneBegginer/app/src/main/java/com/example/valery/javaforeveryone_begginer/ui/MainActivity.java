@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     Button btn_signin;
     @ViewById
     ProgressBar progressBar_login;
-    @ViewById
-    CheckBox remember_checkbox;
 
     Drawable mValidField;
     Drawable mInvalidField;
@@ -116,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void switchAct(){
-        progressBar_login.setVisibility(View.GONE);
         Intent intent = new Intent(this, HomeActivity_.class);
         startActivity(intent);
         finish();
@@ -128,12 +125,11 @@ public class MainActivity extends AppCompatActivity {
             progressBar_login.setVisibility(View.GONE);
             return;
         }
-        if (remember_checkbox.isChecked()){
-            SharedPreferences.Editor ed = prefs.edit();
-            ed.putString("username", username);
-            ed.putString("password", password);
-            ed.apply();
-        }
+        progressBar_login.setVisibility(View.GONE);
+        SharedPreferences.Editor ed = prefs.edit();
+        ed.putString("username", username);
+        ed.putString("password", password);
+        ed.apply();
         switchAct();
     }
 

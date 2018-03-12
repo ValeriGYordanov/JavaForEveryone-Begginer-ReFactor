@@ -2,11 +2,8 @@ package com.example.valery.javaforeveryone_begginer.viewmodel;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-<<<<<<< feature/creatingHome
 import android.arch.lifecycle.LiveData;
 import android.os.SystemClock;
-=======
->>>>>>> local
 
 import com.example.valery.javaforeveryone_begginer.db.AppDatabase;
 import com.example.valery.javaforeveryone_begginer.model.User;
@@ -36,8 +33,8 @@ public class UserViewModel extends AndroidViewModel{
         mAllUsers = appDatabase.userModelDAO().getAllUsers();
     }
 
-    public User getmUser(String username, String password){
-        return appDatabase.userModelDAO().getUserByUsername(username);
+    public User getmUser(){
+        return user;
     }
 
     public Observable<User> getUser (String username, String password){

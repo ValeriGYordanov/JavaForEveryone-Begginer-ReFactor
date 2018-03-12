@@ -75,13 +75,6 @@
             android:layout_centerHorizontal="true"
             android:visibility="invisible" />
 
-        <CheckBox
-            android:id="@+id/remember_checkbox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/password_layout_register"
-            android:layout_centerHorizontal="true"
-            android:text="Запомни ме" />
 
     </RelativeLayout>
 
