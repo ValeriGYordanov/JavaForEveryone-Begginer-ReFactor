@@ -25,4 +25,5 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract UserDao userModelDAO();
+    //public abstract StageDao stageDao(); ADD IT IN THE ANNOTATIONS!!!
 }

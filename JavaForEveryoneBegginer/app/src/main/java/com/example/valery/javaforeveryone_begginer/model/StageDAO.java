@@ -14,7 +14,7 @@
 // * Created by Valery on 3/12/2018.
 // */
 //@Dao
-//public interface StageDAO {
+//public interface StageDao {
 //
 //    @Query("SELECT * FROM Stage")
 //    LiveData<List<Stage>> getAllStages();
