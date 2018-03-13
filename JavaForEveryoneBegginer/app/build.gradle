@@ -9,6 +9,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled false
     }
     buildTypes {
         release {
@@ -54,6 +55,8 @@ dependencies {
 
     //HTML TextView
     compile 'org.sufficientlysecure:html-textview:3.5'
+
+    implementation 'com.github.daolq3012:AssetSQLiteOpenHelper:1.0'
 
 
 }

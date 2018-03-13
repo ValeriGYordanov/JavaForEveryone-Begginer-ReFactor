@@ -44,7 +44,7 @@ public class UserViewModel extends AndroidViewModel{
             SystemClock.sleep(2000);
             if (user == null){
                 user = new User(username, password,(byte) 0);
-                appDatabase.userModelDAO().addUser(user);
+                addUser(user);
             }else if (!user.getPassword().equals(password)){
                 user = new User("", "");
                 emitter.onNext(user);
@@ -55,12 +55,7 @@ public class UserViewModel extends AndroidViewModel{
         });
     }
 
-    public LiveData<List<User>> getmAllUsers(){
-        return mAllUsers;
-    }
-
-
-    public void addUser (User user){
+    private void addUser (User user){
         appDatabase.userModelDAO().addUser(user);
     }
 

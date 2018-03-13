@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,9 +27,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -61,8 +57,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     UserViewModel mUserViewModel;
     User mUser;
-
-    List<User> allUsersTEST;
     String username,password;
 
     Fragment fragment;
@@ -81,8 +75,27 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()){
             case R.id.nav_logout:
                 logout();
+                break;
+            case R.id.nav_profile:
+                //Switch to profile fragment
+                closeDrawerAndFragment();
+                Toast.makeText(this, "Profile btn clicked", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.nav_home:
+                closeDrawerAndFragment();
+                break;
         }
         return false;
+    }
+
+    private void closeDrawerAndFragment(){
+        drawerLayout.closeDrawers();
+        if (frgManager != null) {
+            int count = frgManager.getBackStackEntryCount();
+            if (count > 0) {
+                frgManager.popBackStack();
+            }
+        }
     }
 
     @Override
@@ -98,8 +111,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         username = prefs.getString("username", "");
         password = prefs.getString("password", "");
-
-        allUsersTEST = new ArrayList<>();
 
         navHeaderView = navigationView.getHeaderView(0);
         toggler = new ActionBarDrawerToggle(this, drawerLayout, R.string.open_str,R.string.close_str);
@@ -133,6 +144,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .subscribe(user -> {
                     mUser = user;
                     navHeadUsername.setText(mUser.getUsername());
+                    Log.e("TAG", mUser.userID + " : USERID");
                 });
     }
 
