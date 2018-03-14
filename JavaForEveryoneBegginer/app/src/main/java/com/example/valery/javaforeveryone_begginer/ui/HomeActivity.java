@@ -144,7 +144,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .subscribe(user -> {
                     mUser = user;
                     navHeadUsername.setText(mUser.getUsername());
-                    Log.e("TAG", mUser.userID + " : USERID");
+                    Log.e("TAG", mUser._userID + " : USERID");
                 });
     }
 
@@ -180,6 +180,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.layout_fragment_place, fragment)
                 .addToBackStack(stage)
                 .commit();
-        Toast.makeText(this, stage + " Clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, stage + " Clicked", Toast.LENGTH_SHORT).show();
     }
 }

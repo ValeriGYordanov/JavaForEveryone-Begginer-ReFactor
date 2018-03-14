@@ -10,7 +10,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Stage {
     @PrimaryKey(autoGenerate = true)
-    public int stageID;
+    public int _stageID;
     private String title;
     private String text;
 

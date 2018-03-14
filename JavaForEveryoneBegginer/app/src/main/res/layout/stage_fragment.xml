@@ -42,7 +42,7 @@
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white"
                     android:textSize="@dimen/small_sp"
-                    android:text="Example text"
+                    android:text="Loading text..."
                     />
                 <Button
                     android:id="@+id/btn_next"
@@ -53,6 +53,7 @@
                     android:textColor="@android:color/white"
                     android:layout_gravity="center"
                     android:layout_marginBottom="@dimen/big_margin"
+                    android:visibility="invisible"
                     />
             </LinearLayout>
         </ScrollView>

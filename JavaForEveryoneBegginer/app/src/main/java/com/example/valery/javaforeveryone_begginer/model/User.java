@@ -13,7 +13,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class User {
 
     @PrimaryKey(autoGenerate = true)
-    public int userID;
+    public int _userID;
     private String username;
     private String password;
     private byte stageID;
@@ -50,7 +50,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "Username : " + this.username + " | Password : " + this.password + " | userID : " + this.userID;
+        return "Username : " + this.username + " | Password : " + this.password + " | userID : " + this._userID;
     }
 
     @Override
