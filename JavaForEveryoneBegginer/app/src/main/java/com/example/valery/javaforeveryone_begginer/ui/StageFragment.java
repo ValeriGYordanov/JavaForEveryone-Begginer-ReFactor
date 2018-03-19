@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.example.valery.javaforeveryone_begginer.R;
 import com.example.valery.javaforeveryone_begginer.model.User;
 import com.example.valery.javaforeveryone_begginer.viewmodel.StageViewModel;
@@ -98,6 +100,9 @@ public class StageFragment extends Fragment {
                 titleTxt.setText("Strings");
                 loadText("strings");
                 break;
+            case "methods":
+                titleTxt.setText("Методи");
+                loadText("methods");
         }
 
     }
@@ -117,6 +122,9 @@ public class StageFragment extends Fragment {
                     if (stageTxt != null){
                         stageTxt.setHtml(stage.getText());
                         btnNext.setVisibility(View.VISIBLE);
+                        YoYo.with(Techniques.FadeIn)
+                                .duration(700)
+                                .playOn(stageTxt);
                     }
                 });
     }

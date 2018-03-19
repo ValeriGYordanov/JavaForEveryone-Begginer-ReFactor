@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.valery.javaforeveryone_begginer.R;
 import com.example.valery.javaforeveryone_begginer.model.User;
+import com.example.valery.javaforeveryone_begginer.notify.NotifierService;
 import com.example.valery.javaforeveryone_begginer.viewmodel.UserViewModel;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 
@@ -43,18 +44,26 @@ public class MainActivity extends AppCompatActivity {
     @ViewById
     ProgressBar progressBar_login;
 
-    Drawable mValidField;
-    Drawable mInvalidField;
+    private Drawable mValidField;
+    private Drawable mInvalidField;
 
-    String username;
-    String password;
-    UserViewModel model;
-    User user;
-    SharedPreferences prefs;
+    private String username;
+    private String password;
+    private UserViewModel model;
+    private User user;
+    private SharedPreferences prefs;
+
+    private NotifierService service;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (service == null){
+            service = new NotifierService();
+            Intent serviceIntent = new Intent(getApplicationContext(), NotifierService.class);
+            startService(serviceIntent);
+        }
+
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         username = prefs.getString("username", "");
         password = prefs.getString("password", "");

@@ -51,6 +51,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     ImageButton btn_strings;
     @ViewById(resName = "btn_algorithms")
     ImageButton btn_algorithms;
+    @ViewById(resName = "btn_methods")
+    ImageButton btn_methods;
 
     View navHeaderView;
     ActionBarDrawerToggle toggler;
@@ -77,7 +79,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 logout();
                 break;
             case R.id.nav_profile:
-                //Switch to profile fragment
+                goToProfile();
                 closeDrawerAndFragment();
                 Toast.makeText(this, "Profile btn clicked", Toast.LENGTH_SHORT).show();
                 break;
@@ -126,11 +128,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
+        frgManager = getSupportFragmentManager();
+
         btn_algorithms.setOnClickListener(this);
         btn_arrays.setOnClickListener(this);
         btn_intro.setOnClickListener(this);
         btn_loops.setOnClickListener(this);
         btn_strings.setOnClickListener(this);
+        btn_methods.setOnClickListener(this);
 
         getUser();
         Log.e("TAG", mUserViewModel + " : in Home");
@@ -166,6 +171,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.btn_strings:
                 goToStage("strings");
                 break;
+            case R.id.btn_methods:
+                goToStage("methods");
+                break;
         }
 
     }
@@ -173,7 +181,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private void goToStage(String stage){
         Bundle fragBndl = new Bundle();
         fragBndl.putString("title", stage);
-        frgManager = getSupportFragmentManager();
         fragment = new StageFragment_();
         fragment.setArguments(fragBndl);
         frgManager.beginTransaction()
@@ -182,4 +189,12 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .commit();
         //Toast.makeText(this, stage + " Clicked", Toast.LENGTH_SHORT).show();
     }
+    private void goToProfile(){
+        fragment = new ProfileFragment_();
+        frgManager.beginTransaction()
+                .replace(R.id.layout_fragment_place, fragment)
+                .addToBackStack("profile")
+                .commit();
+    }
+
 }
