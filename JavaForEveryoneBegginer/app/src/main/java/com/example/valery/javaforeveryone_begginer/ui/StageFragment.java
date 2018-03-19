@@ -39,11 +39,11 @@ import io.reactivex.schedulers.Schedulers;
  */
 @EFragment
 public class StageFragment extends Fragment {
-    private static final String STAGE_INTRO = "intro";
-    private static final String STAGE_ARRAYS = "arrays";
-    private static final String STAGE_STRINGS = "strings";
-    private static final String STAGE_ALGORITHMS = "algorithms";
-    private static final String STAGE_LOOPS = "loops";
+//    private static final String STAGE_INTRO = "intro";
+//    private static final String STAGE_ARRAYS = "arrays";
+//    private static final String STAGE_STRINGS = "strings";
+//    private static final String STAGE_ALGORITHMS = "algorithms";
+//    private static final String STAGE_LOOPS = "loops";
 
     private View view;
     private String title, text;
