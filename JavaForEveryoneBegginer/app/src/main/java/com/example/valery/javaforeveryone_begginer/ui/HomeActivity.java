@@ -81,7 +81,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_profile:
                 goToProfile();
                 closeDrawerAndFragment();
-                Toast.makeText(this, "Profile btn clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.nav_home:
                 closeDrawerAndFragment();
@@ -120,7 +119,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         toggler.syncState();
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            //getSupportActionBar().setTitle("JFE");
         }
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -138,7 +136,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         btn_methods.setOnClickListener(this);
 
         getUser();
-        Log.e("TAG", mUserViewModel + " : in Home");
     }
 
     @Background
@@ -149,7 +146,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .subscribe(user -> {
                     mUser = user;
                     navHeadUsername.setText(mUser.getUsername());
-                    Log.e("TAG", mUser._userID + " : USERID");
                 });
     }
 
@@ -187,7 +183,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .replace(R.id.layout_fragment_place, fragment)
                 .addToBackStack(stage)
                 .commit();
-        //Toast.makeText(this, stage + " Clicked", Toast.LENGTH_SHORT).show();
     }
     private void goToProfile(){
         fragment = new ProfileFragment_();
