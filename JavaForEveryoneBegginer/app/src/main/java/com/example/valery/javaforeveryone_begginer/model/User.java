@@ -16,6 +16,8 @@ public class User {
     public int _userID;
     private String username;
     private String password;
+
+    private String imageLoc;
     private byte stageID;
 
     public User(String username, String password) {
@@ -46,6 +48,13 @@ public class User {
     public void setStageID(byte stageID) {
         //Check incoming data
         this.stageID = stageID;
+    }
+    public String getImageLoc() {
+        return imageLoc;
+    }
+
+    public void setImageLoc(String imageLoc) {
+        this.imageLoc = imageLoc;
     }
 
     @Override

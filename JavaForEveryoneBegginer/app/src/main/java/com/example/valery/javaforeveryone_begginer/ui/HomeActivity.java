@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,8 +40,6 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     NavigationView navigationView;
     @ViewById(resName = "home_layout")
     DrawerLayout drawerLayout;
-    @ViewById(resName = "nav_head_username")
-    TextView navHeadUsername;
     @ViewById(resName = "btn_intro")
     ImageButton btn_intro;
     @ViewById(resName = "btn_loops")
@@ -53,6 +52,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     ImageButton btn_algorithms;
     @ViewById(resName = "btn_methods")
     ImageButton btn_methods;
+
+    ImageView profilePic;
+    TextView navHeadUsername;
 
     View navHeaderView;
     ActionBarDrawerToggle toggler;
@@ -123,6 +125,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         navHeadUsername = navHeaderView.findViewById(R.id.nav_head_username);
+        profilePic = navHeaderView.findViewById(R.id.nav_head_img);
 
         mUserViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
@@ -136,6 +139,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         btn_methods.setOnClickListener(this);
 
         getUser();
+
     }
 
     @Background
@@ -146,6 +150,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .subscribe(user -> {
                     mUser = user;
                     navHeadUsername.setText(mUser.getUsername());
+                    if (mUser.getImageLoc() != null){
+                        profilePic.setImageDrawable(mUserViewModel.setImage(mUser.getImageLoc(), this));
+
+                    }
                 });
     }
 

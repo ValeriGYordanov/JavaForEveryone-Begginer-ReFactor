@@ -14,7 +14,7 @@ import com.fstyle.library.helper.AssetSQLiteOpenHelperFactory;
 /**
  * Created by Valery on 3/6/2018.
  */
-@Database(entities = {User.class, Stage.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, Stage.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase instance;
@@ -24,7 +24,9 @@ public abstract class AppDatabase extends RoomDatabase {
 //            instance = Room.databaseBuilder(ctx.getApplicationContext(), AppDatabase.class, "appdb.db")
 //                    .build();
             instance = Room.databaseBuilder(ctx.getApplicationContext(), AppDatabase.class, "appdb.db")
-                    .openHelperFactory(new AssetSQLiteOpenHelperFactory()).build();
+                    .openHelperFactory(new AssetSQLiteOpenHelperFactory())
+                    .fallbackToDestructiveMigration()
+                    .build();
         }
 
         return instance;
