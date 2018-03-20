@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar progressBar_login;
 
     private Drawable mValidField;
-    private Drawable mInvalidField;
 
     private String username;
     private String password;
@@ -77,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     @AfterViews
     public void manageUserInput(){
         mValidField = getDrawable(presence_online);
-        mInvalidField = getDrawable(presence_busy);
         setUpUserInput();
     }
 
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     @Click(R.id.btn_signin)
     public void login(){
         progressBar_login.setVisibility(View.VISIBLE);
-        model.getUser(username, password)
+        model.getUserWithParams(username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnNext(user1 -> {
@@ -105,14 +103,28 @@ public class MainActivity extends AppCompatActivity {
         Observable<CharSequence> usernameObservable = RxTextView.textChanges(usernameEditText);
         usernameObservable
                 .map(this::isValidUsername)
-                .subscribe(isValid -> usernameEditText
-                        .setCompoundDrawablesRelativeWithIntrinsicBounds(null,null, (isValid ? mValidField : mInvalidField), null));
+                .subscribe(isValid -> {
+                    if (isValid){
+                        passwordEditText.setError(null);
+                        usernameEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
+                        usernameEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, mValidField, null);
+                    }else{
+                        usernameEditText.setError("Въведи само букви");
+                    }
+                });
         //Observe text changes on password until valid!
         Observable<CharSequence> passwordObservable = RxTextView.textChanges(passwordEditText);
         passwordObservable
                 .map(this::isValidPassword)
-                .subscribe(isValid -> passwordEditText
-                        .setCompoundDrawablesRelativeWithIntrinsicBounds(null,null, (isValid ? mValidField : mInvalidField), null));
+                .subscribe(isValid -> {
+                    if (isValid){
+                        passwordEditText.setError(null);
+                        usernameEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, null, null);
+                        passwordEditText.setCompoundDrawablesRelativeWithIntrinsicBounds(null, null, mValidField, null);
+                    }else{
+                        passwordEditText.setError("Въведи от 4 до 8 символа, поне 1 буква и цифра");
+                    }
+                });
         //Combine observables and change button visibility if requirements match
         Observable.combineLatest(usernameObservable, passwordObservable, (o1,o2) -> isValidUsername(o1) && isValidPassword(o2))
                 .subscribe(isVisible -> {
@@ -122,12 +134,24 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+
+    /*
+    ** Used for auto-login after the user have
+    ** already been logged in at least once, and haven't
+    ** logged off.
+     */
     private void switchAct(){
         Intent intent = new Intent(this, HomeActivity_.class);
         startActivity(intent);
         finish();
     }
 
+    /*
+    ** Method used to login for the first
+    ** login of a user, taking his username and pass
+    ** make an entry in the SharedPreferences for
+    ** future auto-login.
+     */
     private void rememberUserAndSwitchAct(){
         if (user.getUsername().isEmpty() && user.getPassword().isEmpty()){
             Toast.makeText(this, "Wrong Password Inserted", Toast.LENGTH_SHORT).show();

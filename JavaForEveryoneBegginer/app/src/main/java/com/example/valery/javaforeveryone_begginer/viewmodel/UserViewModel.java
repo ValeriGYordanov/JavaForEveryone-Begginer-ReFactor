@@ -50,11 +50,11 @@ public class UserViewModel extends AndroidViewModel{
         mAllUsers = appDatabase.userModelDAO().getAllUsers();
     }
 
-    public User getmUser(){
+    public User getCurrentUser(){
         return this.user;
     }
 
-    public Observable<User> getUser (String username, String password){
+    public Observable<User> getUserWithParams(String username, String password){
         return Observable.create(emitter -> {
             user = appDatabase.userModelDAO().getUserByUsername(username);
 
@@ -77,38 +77,28 @@ public class UserViewModel extends AndroidViewModel{
     }
 
     public void updateUser(User currentUser){
-        appDatabase.userModelDAO().updateUser(user);
+        Observable.just(user)
+                .subscribeOn(Schedulers.io())
+                .subscribe(user1 -> appDatabase.userModelDAO().updateUser(user));
     }
 
 //    public void deleteAllTable () {
 //        appDatabase.userModelDAO().deleteWholeDB();
 //    }
 
-    public RoundedBitmapDrawable setImage(String imagePath, Activity activity){
-
+    public RoundedBitmapDrawable getRoundImageFrom(String imagePath, Activity activity){
         if (!imagePath.equals(user.getImageLoc())){
             user.setImageLoc(imagePath);
-
-            Observable.just(user)
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(user1 -> updateUser(user1));
+            updateUser(user);
         }
-
         InputStream inputStream;
         Uri imageUri = Uri.parse(imagePath);
-
         try {
             inputStream = activity.getContentResolver().openInputStream(imageUri);
-
             Bitmap image = BitmapFactory.decodeStream(inputStream);
-
             RoundedBitmapDrawable round = RoundedBitmapDrawableFactory.create(activity.getResources(), image);
             round.setCircular(true);
-
             return round;
-            //this.image.setImageDrawable(round);
-
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             Toast.makeText(activity, "Снимката НЕ е заредена...", Toast.LENGTH_LONG).show();

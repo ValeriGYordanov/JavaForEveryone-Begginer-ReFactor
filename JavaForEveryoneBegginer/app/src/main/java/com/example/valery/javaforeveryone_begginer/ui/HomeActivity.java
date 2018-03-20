@@ -12,13 +12,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.valery.javaforeveryone_begginer.R;
 import com.example.valery.javaforeveryone_begginer.model.User;
@@ -66,6 +64,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     Fragment fragment;
     FragmentManager frgManager;
 
+    /*
+    ** Logs out the current user
+    ** getting him back to login screen
+    ** and deleting his info from
+     */
     public void logout(){
         SharedPreferences.Editor ed = prefs.edit();
         ed.clear().apply();
@@ -91,6 +94,9 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
+    /*
+    ** Close Drawer on outer or profile click.
+     */
     private void closeDrawerAndFragment(){
         drawerLayout.closeDrawers();
         if (frgManager != null) {
@@ -109,6 +115,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         return super.onOptionsItemSelected(item);
     }
 
+    /*
+    ** SetUp the variables which will be used
+    ** setting up the Drawer and all of his buttons
+    ** and images!
+     */
     @AfterViews
     void setUp(){
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -142,21 +153,29 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /*
+    ** Returns the stored in Room user
+    ** using params stored in SharedPreferences
+    ** or the new params inserted in the login screen
+     */
     @Background
     public void getUser(){
-        mUserViewModel.getUser(username, password)
+        mUserViewModel.getUserWithParams(username, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(user -> {
                     mUser = user;
                     navHeadUsername.setText(mUser.getUsername());
                     if (mUser.getImageLoc() != null){
-                        profilePic.setImageDrawable(mUserViewModel.setImage(mUser.getImageLoc(), this));
+                        profilePic.setImageDrawable(mUserViewModel.getRoundImageFrom(mUser.getImageLoc(), this));
 
                     }
                 });
     }
 
+    /*
+    ** Handle all stage button clicks
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()){
@@ -182,6 +201,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
+    /*
+    ** Change fragment depending on button
+    ** click as follows:
+     */
     private void goToStage(String stage){
         Bundle fragBndl = new Bundle();
         fragBndl.putString("title", stage);
@@ -192,6 +215,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 .addToBackStack(stage)
                 .commit();
     }
+
+    /*
+    ** Change to profile fragment
+     */
     private void goToProfile(){
         fragment = new ProfileFragment_();
         frgManager.beginTransaction()

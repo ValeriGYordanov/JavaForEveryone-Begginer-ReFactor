@@ -5,6 +5,7 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.SystemClock;
+import android.util.Log;
 
 import com.example.valery.javaforeveryone_begginer.db.AppDatabase;
 import com.example.valery.javaforeveryone_begginer.model.Stage;
@@ -26,7 +27,7 @@ public class StageViewModel extends AndroidViewModel {
 
     public StageViewModel(Application application) {
         super(application);
-
+        Log.e("TAG", "IN STAGEVIEWMODEL CONSTRUCTOR");
         appDatabase = AppDatabase.getInstance(this.getApplication());
         allStages = appDatabase.stageDao().getAllStages();
     }
@@ -37,6 +38,8 @@ public class StageViewModel extends AndroidViewModel {
 
             SystemClock.sleep(2000);
             if (stage == null){
+                Log.e("TAG", "Stage is null from ViewModel " +
+                        allStages.getValue());
                 stage = new Stage("", "");
             }
 

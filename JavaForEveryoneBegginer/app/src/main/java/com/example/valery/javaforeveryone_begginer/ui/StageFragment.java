@@ -18,20 +18,14 @@ import com.example.valery.javaforeveryone_begginer.R;
 import com.example.valery.javaforeveryone_begginer.model.User;
 import com.example.valery.javaforeveryone_begginer.viewmodel.StageViewModel;
 import com.example.valery.javaforeveryone_begginer.viewmodel.UserViewModel;
-import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.reactivestreams.Subscription;
-import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 
-import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -67,7 +61,7 @@ public class StageFragment extends Fragment {
         mUserViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
         mStageViewModel = ViewModelProviders.of(getActivity()).get(StageViewModel.class);
 
-        user = mUserViewModel.getmUser();
+        user = mUserViewModel.getCurrentUser();
         title = getArguments().getString("title");
         Log.e("TAG", mUserViewModel + " : in Fragment");
         Log.e("TAG", user + "");
@@ -120,6 +114,8 @@ public class StageFragment extends Fragment {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(stage -> {
                     if (stageTxt != null){
+                        Log.e("TAG", stage + " : Stage");
+                        Log.e("TAG", stage.getText() + " ");
                         stageTxt.setHtml(stage.getText());
                         btnNext.setVisibility(View.VISIBLE);
                         YoYo.with(Techniques.FadeIn)

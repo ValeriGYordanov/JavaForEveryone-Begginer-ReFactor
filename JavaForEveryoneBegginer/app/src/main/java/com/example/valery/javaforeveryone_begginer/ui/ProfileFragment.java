@@ -4,14 +4,10 @@ package com.example.valery.javaforeveryone_begginer.ui;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,12 +24,8 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 @EFragment
 public class ProfileFragment extends Fragment implements View.OnClickListener {
@@ -75,7 +67,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         changeAvatarBtn.setOnClickListener(this);
         changePasswordBtn.setOnClickListener(this);
         mUserViewModel = ViewModelProviders.of(getActivity()).get(UserViewModel.class);
-        user = mUserViewModel.getmUser();
+        user = mUserViewModel.getCurrentUser();
         usernameTxt.setText(user.getUsername());
         parentLayout.setOnTouchListener((view, motionEvent) -> {
             floatingActionMenu.close(true);
@@ -83,7 +75,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         });
 
         if (user.getImageLoc() != null){
-            image.setImageDrawable(mUserViewModel.setImage(user.getImageLoc(), this.getActivity()));
+            image.setImageDrawable(mUserViewModel.getRoundImageFrom(user.getImageLoc(), this.getActivity()));
         }
     }
 
@@ -124,7 +116,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
             if (resultCode == getActivity().RESULT_OK) {
 
-                this.image.setImageDrawable(mUserViewModel.setImage(result.getUri().toString(), getActivity()));
+                this.image.setImageDrawable(mUserViewModel.getRoundImageFrom(result.getUri().toString(), getActivity()));
 
 //                resultUri = result.getUri();
 //                updateUserImage(resultUri.toString());
