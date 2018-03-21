@@ -5,4 +5,5 @@
     <dimen name="mid_sp">26sp</dimen>
     <dimen name="big_margin">60dp</dimen>
     <dimen name="small_sp">16sp</dimen>
+    <dimen name="small_margin">10dp</dimen>
 </resources>

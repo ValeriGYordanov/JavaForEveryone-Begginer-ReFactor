@@ -70,4 +70,27 @@ public class User {
             return false;
         }
     }
+
+    public boolean setPassword(String newPassword){
+        if (isValidPassword(newPassword)){
+            this.password = newPassword;
+            return true;
+        }
+        return false;
+    }
+    public boolean setUsername(String newUsername){
+        if (isValidUsername(newUsername)){
+            this.username = newUsername;
+            return true;
+        }
+        return false;
+    }
+
+
+    private boolean isValidUsername(CharSequence username){
+        return username.toString().matches("[a-zA-Z]+");
+    }
+    private boolean isValidPassword(CharSequence password){
+        return password.toString().matches("^(?=.*\\d).{4,8}$");
+    }
 }

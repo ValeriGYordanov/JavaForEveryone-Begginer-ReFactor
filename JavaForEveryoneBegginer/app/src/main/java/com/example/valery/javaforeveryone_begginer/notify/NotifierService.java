@@ -36,14 +36,18 @@ import org.androidannotations.annotations.EService;
  */
 public class NotifierService extends Service{
 
+    BatteryReceiver mBatteryReceiver;
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "Service Started", Toast.LENGTH_SHORT).show();
 
+        mBatteryReceiver = new BatteryReceiver();
+
         final IntentFilter batteryChangeFilter = new IntentFilter(
                 Intent.ACTION_BATTERY_CHANGED
         );
-        this.registerReceiver(new BatteryReceiver(), batteryChangeFilter);
+        this.registerReceiver(mBatteryReceiver, batteryChangeFilter);
 
         return START_STICKY;
     }
@@ -140,5 +144,11 @@ public class NotifierService extends Service{
                 throw new IllegalArgumentException("unsupported drawable type");
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mBatteryReceiver);
     }
 }
