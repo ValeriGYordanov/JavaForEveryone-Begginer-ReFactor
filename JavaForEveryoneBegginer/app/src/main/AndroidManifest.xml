@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.BATTERY_STATS"/>
 
     <application
         android:allowBackup="true"
@@ -24,9 +25,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.HomeActivity_"/>
-        <!--<service android:name=".notify.NotifierService"-->
-            <!--android:stopWithTask="false"/>-->
-        <!--<receiver android:name=".notify.NotifierService$BatteryReceiver"/>-->
+        <service android:name=".notify.NotifierService"
+            android:stopWithTask="false"/>
+        <receiver android:name=".notify.NotifierService$BatteryReceiver"/>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
